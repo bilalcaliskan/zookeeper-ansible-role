@@ -1,0 +1,36 @@
+---
+
+- name: Ensure correct partitions exist on device {{ device }}
+  parted:
+    device: "{{ device }}"
+    state: present
+    label: "{{ disk_label }}"
+    number: "{{ partition.number }}"
+    part_start: "{{ partition.start }}"
+    part_end: "{{ partition.end }}"
+
+- name: Ensure volume group exists
+  lvg:
+    vg: "{{ volume_group.name }}"
+    pvs: "{{ volume_group.device }}"
+
+- name: Create logical volume if needed
+  lvol:
+    vg: "{{ logical_volume.vgroup }}"
+    lv: "{{ logical_volume.name }}"
+    size: "{{ logical_volume.size }}"
+  when: logical_volume.name not in ansible_lvm["lvs"]
+
+- name: Ensure {{ filesystem_type | upper }} filesystem exist on logical volume
+  filesystem:
+    dev: "/dev/{{ volume_group.name }}/{{ logical_volume.name }}"
+    fstype: "{{ filesystem_type }}"
+
+- name: Ensure logical volume is mounted
+  mount:
+    path: "{{ logical_volume.mount_path }}"
+    src: "/dev/{{ volume_group.name }}/{{ logical_volume.name }}"
+    fstype: "{{ filesystem_type }}"
+    state: mounted
+
+...

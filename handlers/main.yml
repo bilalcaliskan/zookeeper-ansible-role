@@ -1,0 +1,24 @@
+---
+
+- name: Pause 5 seconds before running rest of zookeeper handlers
+  pause:
+    seconds: 5
+
+- name: Reload firewalld for zookeeper service
+  command: firewall-cmd --reload
+
+- name: Start and enable zookeeper service
+  systemd:
+    name: zookeeper
+    state: started
+    enabled: yes
+    daemon_reload: yes
+
+- name: Create a symlink of zookeeper log directory
+  file:
+    src: "{{ link_path }}/logs"
+    dest: "{{ log_path }}"
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    state: link
+    force: yes

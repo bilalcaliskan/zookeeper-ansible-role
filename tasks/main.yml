@@ -1,0 +1,11 @@
+---
+
+- name: Include install.yml file conditionally
+  include_tasks: install.yml
+  when: (install | bool)
+
+- name: Include uninstall.yml file conditionally
+  include_tasks: uninstall.yml
+  when: not (install | bool)
+
+...

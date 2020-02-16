@@ -1,0 +1,111 @@
+---
+
+- name: Get service facts
+  service_facts:
+
+- name: Check if Zookeeper is installed
+  set_fact:
+    zookeeper_installed: false
+  when: ansible_facts.services["zookeeper.service"] is not defined
+
+- name: Install and configure Zookeeper
+  block:
+    - name: Install required packages
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ required_packages }}"
+
+    - name: Ensure {{ group }} group exists
+      group:
+        name: "{{ group }}"
+        state: present
+
+    - name: Ensure {{ user }} user exists
+      user:
+        name: "{{ user }}"
+        shell: /sbin/nologin
+        group: "{{ group }}"
+
+    - name: Download tar.gz file
+      get_url:
+        url: "{{ download_url }}"
+        dest: "{{ base_dir_path }}/"
+        owner: "{{ user }}"
+        group: "{{ group }}"
+        mode: 0644
+
+    - name: Extract tar.gz file
+      unarchive:
+        src: "{{ file_path }}"
+        dest: "{{ base_dir_path }}/"
+        owner: "{{ user }}"
+        group: "{{ group }}"
+        remote_src: yes
+
+    - name: Create a symlink of unarchived directory
+      file:
+        src: "{{ folder_path }}"
+        dest: "{{ link_path }}"
+        owner: "{{ user }}"
+        group: "{{ group }}"
+        state: link
+
+    - name: Create data directory
+      file:
+        path: "{{ data_dir_path }}"
+        state: directory
+        owner: "{{ user }}"
+        group: "{{ group }}"
+        mode: 0770
+
+    - name: Include setup_storage.yml conditionally
+      include_tasks: setup_storage.yml
+      when: (enable_persistency | bool)
+
+    - name: Recursively change ownership of required directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        recurse: yes
+        owner: "{{ user }}"
+        group: "{{ group }}"
+      loop:
+        - "{{ folder_path }}"
+        - "{{ data_dir_path }}"
+
+    - name: Transfer template files to the remote location
+      template:
+        src: "{{ item.src_path }}"
+        dest: "{{ item.dest_path }}"
+        owner: "{{ item.user }}"
+        group: "{{ item.group }}"
+        mode: "{{ item.mode }}"
+      loop:
+        - { src_path: zoo.cfg.j2, dest_path: "{{ link_path }}/conf/zoo.cfg", user: "{{ user }}", group: "{{ group }}", mode: 0644  }
+        - { src_path: myid.j2, dest_path: "{{ data_dir_path }}/myid", user: "{{ user }}", group: "{{ group }}", mode: 0644  }
+        - { src_path: zookeeper.service.j2, dest_path: "{{ systemd_service_file_path }}", user: root, group: root, mode: 0644  }
+
+    - name: Allow zookeeper ports
+      firewalld:
+        port: "{{ item }}"
+        permanent: true
+        immediate: true
+        state: enabled
+      loop: "{{ ports }}"
+      changed_when: true
+      notify:
+        - Pause 5 seconds before running rest of zookeeper handlers
+        - Reload firewalld for zookeeper service
+        - Start and enable zookeeper service
+        - Create a symlink of zookeeper log directory
+
+    - name: Set fact zookeeper_installed
+      set_fact:
+        zookeeper_installed: true
+  rescue:
+    - debug:
+        msg: "Got an error inside block, try to rerun tasks with -v option"
+  when: ansible_facts.services["zookeeper.service"] is not defined
+
+...

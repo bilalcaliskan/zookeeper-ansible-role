@@ -1,0 +1,46 @@
+---
+
+install: true
+version: 3.5.5
+user: zookeeper
+group: zookeeper
+mirror_url: https://apache.org/dist
+download_url: "{{ mirror_url }}/zookeeper/zookeeper-{{ version }}/apache-zookeeper-{{ version }}-bin.tar.gz"
+base_dir_path: /opt
+folder_path: "{{ base_dir_path }}/apache-zookeeper-{{ version }}-bin"
+file_path: "{{ folder_path }}.tar.gz"
+link_path: "{{ base_dir_path }}/zookeeper"
+log_path: /var/log/zookeeper
+data_dir_path: /var/lib/zookeeper
+systemd_service_file_path: /usr/lib/systemd/system/zookeeper.service
+init_limit: 5
+sync_limit: 2
+tick_time: 2000
+systemd_nofile_limit: 32768
+ports:
+  - 2181/tcp
+  - 2888/tcp
+  - 3888/tcp
+required_packages:
+  - java-1.8.0-openjdk
+java_opts: "-Xmx512m -Xms512m"
+
+# Persistency parameters
+enable_persistency: false
+device: /dev/sdb
+disk_label: gpt
+filesystem_type: xfs
+partition:
+  number: 1
+  start: 1MiB
+  # Parted module can take values like 100%, 10GiB etc.
+  end: 100%
+volume_group:
+  name: zookeeper-vg
+  device: "{{ device }}{{ partition.number }}"
+logical_volume:
+  name: zookeeper-lv
+  vgroup: "{{ volume_group.name }}"
+  size: 99%FREE
+  mount_path: "{{ data_dir_path }}"
+

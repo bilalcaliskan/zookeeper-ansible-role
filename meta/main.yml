@@ -1,0 +1,16 @@
+galaxy_info:
+  author: bilalcaliskan
+  role_name: zookeeper
+  description: Zookeeper cluster setup
+  min_ansible_version: 2.6
+  galaxy_tags:
+    - configuration
+    - zookeeper
+  license: "license (BSD, MIT)"
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+
+dependencies: []

@@ -1,0 +1,31 @@
+---
+
+- name: Ensure logical volume is unmounted
+  mount:
+    path: "{{ logical_volume.mount_path }}"
+    state: absent
+
+- name: Remove logical volume if needed
+  lvol:
+    vg: "{{ logical_volume.vgroup }}"
+    lv: "{{ logical_volume.name }}"
+    state: absent
+    force: true
+  when: logical_volume.name in ansible_lvm["lvs"]
+
+- name: Ensure volume group does not exist
+  lvg:
+    vg: "{{ volume_group.name }}"
+    state: absent
+
+- name: Ensure partitions on device {{ device }} does not exist anymore
+  parted:
+    device: "{{ device }}"
+    state: absent
+    number: "{{ partition.number }}"
+
+- name: Wipe existing disk labels on {{ device }}
+  command: "wipefs -a {{ device }}"
+  register: wipefs_result
+
+...
