@@ -43,4 +43,3 @@ logical_volume:
   vgroup: "{{ volume_group.name }}"
   size: 99%FREE
   mount_path: "{{ data_dir_path }}"
-

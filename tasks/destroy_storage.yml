@@ -27,5 +27,3 @@
 - name: Wipe existing disk labels on {{ device }}
   command: "wipefs -a {{ device }}"
   register: wipefs_result
-
-...
