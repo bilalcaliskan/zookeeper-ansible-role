@@ -22,7 +22,10 @@
         immediate: true
         permanent: true
         state: disabled
-      loop: "{{ ports }}"
+      loop:
+        - 2188/tcp
+        - 2888/tcp
+        - 3888/tcp
 
     - name: Include destroy_storage.yml conditionally
       include_tasks: destroy_storage.yml
@@ -36,7 +39,6 @@
         - "{{ config_dir_path }}"
         - "{{ data_dir_path }}"
         - "{{ folder_path }}"
-        - "{{ file_path }}"
         - "{{ link_path }}"
         - "{{ systemd_service_file_path }}"
 
@@ -54,7 +56,7 @@
         name: "{{ group }}"
         state: absent
   rescue:
-    - debug:
+    - fail:
         msg: "Got an error inside block, try to rerun tasks with -v option"
   when: ansible_facts.services["zookeeper.service"] is defined
 

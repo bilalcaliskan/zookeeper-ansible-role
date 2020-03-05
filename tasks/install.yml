@@ -27,6 +27,11 @@
         shell: /sbin/nologin
         group: "{{ group }}"
 
+    - name: Check if tar file exists
+      stat:
+        path: "{{ file_path }}"
+      register: file_stat_result
+
     - name: Download tar.gz file
       get_url:
         url: "{{ download_url }}"
@@ -34,6 +39,7 @@
         owner: "{{ user }}"
         group: "{{ group }}"
         mode: 0644
+      when: not file_stat_result.stat.exists
 
     - name: Extract tar.gz file
       unarchive:
@@ -86,17 +92,24 @@
         - { src_path: myid.j2, dest_path: "{{ data_dir_path }}/myid", user: "{{ user }}", group: "{{ group }}", mode: 0644 }
         - { src_path: zookeeper.service.j2, dest_path: "{{ systemd_service_file_path }}", user: root, group: root, mode: 0644 }
 
+    - name: Ensure firewalld is started and enabled
+      service:
+        name: firewalld
+        state: restarted
+        enabled: true
+
     - name: Allow zookeeper ports
       firewalld:
         port: "{{ item }}"
         permanent: true
         immediate: true
         state: enabled
-      loop: "{{ ports }}"
+      loop:
+        - 2188/tcp
+        - 2888/tcp
+        - 3888/tcp
       changed_when: true
       notify:
-        - Pause 5 seconds before running rest of zookeeper handlers
-        - Reload firewalld for zookeeper service
         - Start and enable zookeeper service
         - Create a symlink of zookeeper log directory
 
@@ -104,7 +117,7 @@
       set_fact:
         zookeeper_installed: true
   rescue:
-    - debug:
+    - fail:
         msg: "Got an error inside block, try to rerun tasks with -v option"
   when: ansible_facts.services["zookeeper.service"] is not defined
 

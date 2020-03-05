@@ -1,10 +1,10 @@
 ---
 
 install: true
-version: 3.5.5
+version: 3.6.0
 user: zookeeper
 group: zookeeper
-mirror_url: https://apache.org/dist
+mirror_url: https://archive.apache.org/dist
 download_url: "{{ mirror_url }}/zookeeper/zookeeper-{{ version }}/apache-zookeeper-{{ version }}-bin.tar.gz"
 base_dir_path: /opt
 folder_path: "{{ base_dir_path }}/apache-zookeeper-{{ version }}-bin"
@@ -17,12 +17,12 @@ init_limit: 5
 sync_limit: 2
 tick_time: 2000
 systemd_nofile_limit: 32768
-ports:
-  - 2181/tcp
-  - 2888/tcp
-  - 3888/tcp
 required_packages:
   - java-1.8.0-openjdk
+  - firewalld
+  - setroubleshoot-server
+  - selinux-policy-devel
+  - tuned
 java_opts: "-Xmx512m -Xms512m"
 
 # Persistency parameters

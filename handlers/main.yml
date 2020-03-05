@@ -1,12 +1,5 @@
 ---
 
-- name: Pause 5 seconds before running rest of zookeeper handlers
-  pause:
-    seconds: 5
-
-- name: Reload firewalld for zookeeper service
-  command: firewall-cmd --reload
-
 - name: Start and enable zookeeper service
   systemd:
     name: zookeeper
@@ -22,3 +15,5 @@
     group: "{{ group }}"
     state: link
     force: yes
+
+...
