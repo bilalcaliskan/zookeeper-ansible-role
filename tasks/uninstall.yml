@@ -42,10 +42,6 @@
         - "{{ link_path }}"
         - "{{ systemd_service_file_path }}"
 
-    - name: Reload systemd
-      systemd:
-        daemon_reload: true
-
     - name: Ensure {{ user }} user no more exists
       user:
         name: "{{ user }}"

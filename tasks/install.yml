@@ -121,6 +121,6 @@
     - name: Fail and print message
       fail:
         msg: "Got an error inside block, try to rerun tasks with -v option"
-  when: ansible_facts.services["zookeeper.service"] is not defined
+  when: ansible_facts.services["zookeeper.service"] is defined
 
 ...
