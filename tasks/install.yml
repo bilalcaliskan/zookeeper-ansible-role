@@ -95,7 +95,7 @@
     - name: Ensure firewalld is started and enabled
       service:
         name: firewalld
-        state: restarted
+        state: started
         enabled: true
 
     - name: Allow zookeeper ports
