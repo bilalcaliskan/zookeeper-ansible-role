@@ -47,7 +47,7 @@
         dest: "{{ base_dir_path }}/"
         owner: "{{ user }}"
         group: "{{ group }}"
-        remote_src: yes
+        remote_src: true
 
     - name: Create a symlink of unarchived directory
       file:
@@ -73,7 +73,7 @@
       file:
         path: "{{ item }}"
         state: directory
-        recurse: yes
+        recurse: true
         owner: "{{ user }}"
         group: "{{ group }}"
       loop:
@@ -88,9 +88,9 @@
         group: "{{ item.group }}"
         mode: "{{ item.mode }}"
       loop:
-        - { src_path: zoo.cfg.j2, dest_path: "{{ link_path }}/conf/zoo.cfg", user: "{{ user }}", group: "{{ group }}", mode: 0644 }
-        - { src_path: myid.j2, dest_path: "{{ data_dir_path }}/myid", user: "{{ user }}", group: "{{ group }}", mode: 0644 }
-        - { src_path: zookeeper.service.j2, dest_path: "{{ systemd_service_file_path }}", user: root, group: root, mode: 0644 }
+        - {src_path: zoo.cfg.j2, dest_path: "{{ link_path }}/conf/zoo.cfg", user: "{{ user }}", group: "{{ group }}", mode: 0644}
+        - {src_path: myid.j2, dest_path: "{{ data_dir_path }}/myid", user: "{{ user }}", group: "{{ group }}", mode: 0644}
+        - {src_path: zookeeper.service.j2, dest_path: "{{ systemd_service_file_path }}", user: root, group: root, mode: 0644}
 
     - name: Ensure firewalld is started and enabled
       service:
