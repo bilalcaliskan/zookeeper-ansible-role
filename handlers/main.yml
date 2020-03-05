@@ -1,13 +1,13 @@
 ---
 
-- name: Start and enable zookeeper service
+- name: start and enable zookeeper service
   systemd:
     name: zookeeper
     state: started
     enabled: yes
     daemon_reload: yes
 
-- name: Create a symlink of zookeeper log directory
+- name: create a symlink of zookeeper log directory
   file:
     src: "{{ link_path }}/logs"
     dest: "{{ log_path }}"

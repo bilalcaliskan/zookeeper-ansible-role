@@ -109,14 +109,14 @@
         - 2888/tcp
         - 3888/tcp
       ignore_errors: true
-      changed_when: true
 
     - name: Set fact zookeeper_installed
       set_fact:
         zookeeper_installed: true
+      changed_when: true
       notify:
-        - Start and enable zookeeper service
-        - Create a symlink of zookeeper log directory
+        - start and enable zookeeper service
+        - create a symlink of zookeeper log directory
   rescue:
     - name: Fail and print message
       fail:
