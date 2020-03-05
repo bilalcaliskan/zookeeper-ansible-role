@@ -4,13 +4,13 @@
 - name: Verify
   hosts: all
   tasks:
-    - name: Ensure all the Zookeeper related ports are reachable
+    - name: Ensure Zookeeper client port is reachable
       wait_for:
         host: localhost
         port: "{{ item }}"
         timeout: 3
       loop:
-        - 2188
+        - 2181
         - 2888
         - 3888
 
