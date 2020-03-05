@@ -4,14 +4,8 @@
 - name: Verify
   hosts: all
   tasks:
-    - name: Ensure all the Zookeeper related ports are reachable
-      wait_for:
-        host: 127.0.0.1
-        port: "{{ item }}"
-        timeout: 30
-      loop:
-        - 2188
-        - 2888
-        - 3888
+  - name: Example assertion
+    assert:
+      that: true
 
 ...
