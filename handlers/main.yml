@@ -14,6 +14,6 @@
     owner: "{{ user }}"
     group: "{{ group }}"
     state: link
-    force: yes
+    force: true
 
 ...
