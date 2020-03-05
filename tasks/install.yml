@@ -108,6 +108,7 @@
         - 2188/tcp
         - 2888/tcp
         - 3888/tcp
+      ignore_errors: true
       changed_when: true
       notify:
         - Start and enable zookeeper service
