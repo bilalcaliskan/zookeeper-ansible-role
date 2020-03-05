@@ -1,10 +1,11 @@
 ---
 
 - name: start and enable zookeeper service
-  service:
+  systemd:
     name: zookeeper
     state: started
     enabled: true
+    daemon_reload: true
 
 - name: create a symlink of zookeeper log directory
   file:
