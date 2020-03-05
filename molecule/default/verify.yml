@@ -6,9 +6,9 @@
   tasks:
     - name: Ensure all the Zookeeper related ports are reachable
       wait_for:
-        host: 0.0.0.0
+        host: 127.0.0.1
         port: "{{ item }}"
-        timeout: 3
+        timeout: 30
       loop:
         - 2188
         - 2888
