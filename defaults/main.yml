@@ -1,5 +1,6 @@
 ---
 
+############# CONFIGURABLE VARIABLES #############
 install: true
 version: 3.6.0
 user: zookeeper
@@ -16,7 +17,12 @@ systemd_service_file_path: /usr/lib/systemd/system/zookeeper.service
 init_limit: 5
 sync_limit: 2
 tick_time: 2000
-systemd_nofile_limit: 32768
+os_required_limits:
+  - key: LimitNOFILE
+    value: 65536
+os_required_parameters:
+  - key: net.core.somaxconn
+    value: 10240
 required_packages:
   - java-1.8.0-openjdk
   - firewalld

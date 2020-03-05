@@ -15,7 +15,9 @@ WorkingDirectory={{ link_path }}
 ExecStart={{ link_path }}/bin/zkServer.sh start {{ link_path }}/conf/zoo.cfg
 ExecStop={{ link_path }}/bin/zkServer.sh stop {{ link_path }}/conf/zoo.cfg
 ExecReload={{ link_path }}/bin/zkServer.sh restart {{ link_path }}/conf/zoo.cfg
-LimitNOFILE={{ systemd_nofile_limit }}
+{% for item in os_required_limits %}
+{{ item.key }}={{ item.value }}
+{% endfor %}
 Environment="JVMFLAGS={{ java_opts }}"
 
 [Install]
