@@ -7,11 +7,7 @@
     - name: Ensure Zookeeper client port is reachable
       wait_for:
         host: localhost
-        port: "{{ item }}"
+        port: 2181
         timeout: 3
-      loop:
-        - 2181
-        - 2888
-        - 3888
 
 ...
