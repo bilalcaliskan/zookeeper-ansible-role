@@ -2,7 +2,7 @@
 
 ############# CONFIGURABLE VARIABLES #############
 install: true
-version: 3.6.0
+version: 3.5.5
 user: zookeeper
 group: zookeeper
 mirror_url: https://archive.apache.org/dist

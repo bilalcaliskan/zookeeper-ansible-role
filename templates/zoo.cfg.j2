@@ -6,6 +6,6 @@ syncLimit={{ sync_limit }}
 {% set hosts = groups[hostvars[inventory_hostname].group_names[0]] -%}
 {% set current_host_index = hosts.index(inventory_hostname) -%}
 {% if current_host_index < 0 %}{{ fail() }}{% endif %}
-{% for host in hosts %}
-server.{{ hosts.index(host) }}={% if current_host_index == groups[hostvars[inventory_hostname].group_names[0]].index(host) %}0.0.0.0{% else %}{{ host }}{% endif %}:2888:3888
+{% for host in ansible_play_hosts %}
+server.{{ ansible_play_hosts.index(host) }}={% if current_host_index == groups[hostvars[inventory_hostname].group_names[0]].index(host) %}0.0.0.0{% else %}{{ host }}{% endif %}:2888:3888
 {% endfor %}
