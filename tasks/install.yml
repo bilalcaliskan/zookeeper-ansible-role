@@ -105,7 +105,7 @@
         immediate: true
         state: enabled
       loop:
-        - 2188/tcp
+        - 2181/tcp
         - 2888/tcp
         - 3888/tcp
       ignore_errors: true
