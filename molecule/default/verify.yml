@@ -3,6 +3,7 @@
 
 - name: Verify
   hosts: all
+  ignore_errors: true
   tasks:
     - name: Ensure Zookeeper client port is reachable
       wait_for:
