@@ -23,7 +23,7 @@
         permanent: true
         state: disabled
       loop:
-        - 2188/tcp
+        - 2181/tcp
         - 2888/tcp
         - 3888/tcp
 
@@ -36,11 +36,11 @@
         path: "{{ item }}"
         state: absent
       loop:
-        - "{{ config_dir_path }}"
         - "{{ data_dir_path }}"
         - "{{ folder_path }}"
         - "{{ link_path }}"
         - "{{ systemd_service_file_path }}"
+      notify: force systemd to reread configs
 
     - name: Ensure {{ user }} user no more exists
       user:
