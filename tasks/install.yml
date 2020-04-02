@@ -113,13 +113,13 @@
     - 2181/tcp
     - 2888/tcp
     - 3888/tcp
-  notify:
-    - start and enable zookeeper service
-    - create a symlink of zookeeper log directory
 
 - name: Set fact after installation
   set_fact:
     zookeeper_installed: true
   when: ansible_facts.services["zookeeper.service"] is defined
+  notify:
+    - start and enable zookeeper service
+    - create a symlink of zookeeper log directory
 
 ...
