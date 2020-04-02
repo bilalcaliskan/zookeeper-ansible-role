@@ -8,6 +8,6 @@
       wait_for:
         host: localhost
         port: 2181
-        timeout: 3
+        timeout: 5
 
 ...
