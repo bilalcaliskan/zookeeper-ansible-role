@@ -9,9 +9,10 @@
   when: ansible_facts.services["zookeeper.service"] is not defined
 
 - name: Install required packages
-  yum:
+  package:
     name: "{{ item }}"
     state: present
+    use: auto
   loop: "{{ required_packages }}"
 
 - name: Ensure {{ group }} group exists
