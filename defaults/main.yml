@@ -1,6 +1,6 @@
 ---
 
-############# CONFIGURABLE VARIABLES #############
+############# Installation Specific Parameters #############
 install: true
 version: 3.5.5
 user: zookeeper
@@ -14,9 +14,8 @@ link_path: "{{ base_dir_path }}/zookeeper"
 log_path: /var/log/zookeeper
 data_dir_path: /var/lib/zookeeper
 systemd_service_file_path: /usr/lib/systemd/system/zookeeper.service
-init_limit: 5
-sync_limit: 2
-tick_time: 2000
+
+############# OS Specific Parameters #############
 os_required_limits:
   - key: LimitNOFILE
     value: 65536
@@ -29,9 +28,14 @@ required_packages:
   - setroubleshoot-server
   - selinux-policy-devel
   - tuned
+
+############# Zookeeper Parameters #############
+init_limit: 5
+sync_limit: 2
+tick_time: 2000
 java_opts: "-Xmx512m -Xms512m"
 
-# Persistency parameters
+############# Persistency Parameters #############
 enable_persistency: false
 device: /dev/sdb
 disk_label: gpt

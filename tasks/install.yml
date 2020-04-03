@@ -102,7 +102,7 @@
 - name: Ensure firewalld is started and enabled
   service:
     name: firewalld
-    state: restarted
+    state: started
     enabled: true
   changed_when: false
 

@@ -1,7 +1,6 @@
 ---
-# This is an example playbook to execute Ansible tests.
 
-- name: Verify
+- name: Verify play
   hosts: all
   tasks:
     - name: Ensure Zookeeper client port is reachable
