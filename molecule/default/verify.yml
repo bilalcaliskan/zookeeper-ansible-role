@@ -8,5 +8,3 @@
         host: localhost
         port: 2181
         timeout: 5
-
-...

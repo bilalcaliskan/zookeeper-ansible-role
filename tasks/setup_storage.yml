@@ -32,5 +32,3 @@
     src: "/dev/{{ volume_group.name }}/{{ logical_volume.name }}"
     fstype: "{{ filesystem_type }}"
     state: mounted
-
-...

@@ -7,5 +7,3 @@
 - name: Include uninstall.yml file conditionally
   include_tasks: uninstall.yml
   when: not (install | bool)
-
-...
