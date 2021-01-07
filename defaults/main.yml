@@ -2,7 +2,7 @@
 
 ############# Installation Specific Parameters #############
 install: true
-start_firewall: true
+enable_firewalld: true
 version: 3.6.2
 user: zookeeper
 group: zookeeper
