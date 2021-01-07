@@ -16,7 +16,7 @@
         state: stopped
         enabled: false
 
-    - name: Revoke firewalld permissions
+    - name: Revoke firewalld permissions if firewalld is running
       firewalld:
         port: "{{ item }}"
         immediate: true
@@ -26,7 +26,7 @@
         - 2181/tcp
         - 2888/tcp
         - 3888/tcp
-      when: (start_firewalld | bool)
+      when: ansible_facts.services["firewalld.service"].state == "running"
 
     - name: Include destroy_storage.yml conditionally
       include_tasks: destroy_storage.yml

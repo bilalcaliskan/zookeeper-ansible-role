@@ -1,5 +1,9 @@
 ---
 
+- name: force systemd to reread configs
+  systemd:
+    daemon_reload: true
+
 - name: start and enable zookeeper service
   systemd:
     name: zookeeper
@@ -15,7 +19,3 @@
     group: "{{ group }}"
     state: link
     force: true
-
-- name: force systemd to reread configs
-  systemd:
-    daemon_reload: true
