@@ -101,6 +101,14 @@
     - start and enable zookeeper service
     - create a symlink of zookeeper log directory
 
+- name: Set kernel parameters for Zookeeper
+  sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    state: present
+    reload: true
+  loop: "{{ os_required_parameters }}"
+
 - name: Stop firewalld if desired by user
   service:
     name: firewalld
