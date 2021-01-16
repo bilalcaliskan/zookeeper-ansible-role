@@ -1,6 +1,6 @@
 ## Zookeeper Ansible Role
 
-[![Build Status](https://travis-ci.org/bilalcaliskan/zookeeper-ansible-role.svg?branch=master)](https://travis-ci.org/bilalcaliskan/zookeeper-ansible-role)
+[![CI](https://github.com/bilalcaliskan/zookeeper-ansible-role/workflows/CI/badge.svg?event=push)](https://github.com/bilalcaliskan/zookeepers-ansible-role/actions?query=workflow%3ACI)
 
 Installs and configures Zookeeper cluster on RHEL/CentOS 7/8 servers.
 

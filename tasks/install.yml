@@ -81,6 +81,7 @@
     recurse: true
     owner: "{{ user }}"
     group: "{{ group }}"
+    mode: 0755
   loop:
     - "{{ folder_path }}"
     - "{{ data_dir_path }}"
@@ -118,23 +119,23 @@
 
 - name: Firewalld related block
   block:
-  - name: Ensure firewalld is started and enabled
-    service:
-      name: firewalld
-      state: started
-      enabled: true
-    changed_when: false
+    - name: Ensure firewalld is started and enabled
+      service:
+        name: firewalld
+        state: started
+        enabled: true
+      changed_when: false
 
-  - name: Allow zookeeper ports
-    firewalld:
-      port: "{{ item }}"
-      permanent: true
-      immediate: true
-      state: enabled
-    loop:
-      - 2181/tcp
-      - 2888/tcp
-      - 3888/tcp
+    - name: Allow zookeeper ports
+      firewalld:
+        port: "{{ item }}"
+        permanent: true
+        immediate: true
+        state: enabled
+      loop:
+        - 2181/tcp
+        - 2888/tcp
+        - 3888/tcp
   when: (enable_firewalld | bool)
 
 - name: Set fact after installation
