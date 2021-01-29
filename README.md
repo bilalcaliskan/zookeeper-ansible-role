@@ -26,6 +26,7 @@ Also please see the Redhat ansible_os_family specific variables in [vars/redhat.
 > ```yaml  
 > enable_firewalld: false
 
+
 ### Dependencies
 
 None
