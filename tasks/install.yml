@@ -86,7 +86,6 @@
     - {src_path: myid.j2, dest_path: "{{ data_dir_path }}/myid", user: "{{ user }}", group: "{{ group }}", mode: 640}
     - {src_path: zookeeper.service.j2, dest_path: "{{ systemd_service_file_path }}", user: root, group: root, mode: 640}
   notify:
-    - force systemd to reread configs
     - start and enable zookeeper service
     - create a symlink of zookeeper log directory
 
