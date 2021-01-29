@@ -22,12 +22,6 @@ os_required_limits:
 os_required_parameters:
   - key: net.core.somaxconn
     value: 10240
-required_packages:
-  - java-1.8.0-openjdk
-  - firewalld
-  - setroubleshoot-server
-  - selinux-policy-devel
-  - tuned
 
 ############# Zookeeper Parameters #############
 init_limit: 5
