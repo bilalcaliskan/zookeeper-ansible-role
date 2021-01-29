@@ -14,7 +14,7 @@ file_path: "{{ folder_path }}.tar.gz"
 link_path: "{{ base_dir_path }}/zookeeper"
 log_path: /var/log/zookeeper
 data_dir_path: /var/lib/zookeeper
-systemd_service_file_path: /usr/lib/systemd/system/zookeeper.service
+systemd_service_file_path: /etc/systemd/system/zookeeper.service
 
 ############# OS Specific Parameters #############
 os_required_limits:

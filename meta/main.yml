@@ -14,5 +14,10 @@ galaxy_info:
       versions:
         - 7
         - 8
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+        - focal
 
 dependencies: []
