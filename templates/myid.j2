@@ -1,1 +1,5 @@
-{{ groups[hostvars[inventory_hostname].group_names[0]].index(inventory_hostname) }}
+{% if 'zookeepers' in group_names %}
+{{ groups['zookeepers'].index(inventory_hostname) }}
+{% else %}
+{{ groups['all'].index(inventory_hostname) }}
+{% endif %}
