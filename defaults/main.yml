@@ -3,7 +3,7 @@
 ############# Installation Specific Parameters #############
 install: true
 enable_firewalld: true
-version: 3.6.2
+version: 3.6.3
 user: zookeeper
 group: zookeeper
 mirror_url: https://archive.apache.org/dist
