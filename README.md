@@ -62,6 +62,7 @@ This project requires below tools while developing:
 - [Ansible 2.4 or higher](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 - [pre-commit](https://pre-commit.com/)
 - [ansible-lint](https://ansible-lint.readthedocs.io/en/latest/installing.html#using-pip-or-pipx) - required by [pre-commit](https://pre-commit.com/)
+- [Bash shell](https://www.gnu.org/software/bash/) - required by [pre-commit](https://pre-commit.com/)
 
 ## License
 Apache License 2.0
