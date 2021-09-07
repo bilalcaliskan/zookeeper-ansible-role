@@ -1,7 +1,7 @@
 # Zookeeper Ansible Role
 [![CI](https://github.com/bilalcaliskan/zookeeper-ansible-role/workflows/CI/badge.svg?event=push)](https://github.com/bilalcaliskan/zookeepers-ansible-role/actions?query=workflow%3ACI)
 
-Installs and configures [Apache Zookeeper](https://zookeeper.apache.org/) on Redhat/Debian based hosts.
+Installs and configures [Apache Zookeeper](https://zookeeper.apache.org/) cluster on Redhat/Debian based hosts.
 
 ## Requirements
 This role requires minimum Ansible version 2.4 and maximum Ansible version 2.9. You can install suggested version with pip:
