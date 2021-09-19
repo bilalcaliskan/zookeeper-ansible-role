@@ -73,7 +73,7 @@ jobs:
         with:
           fetch-depth: '0'
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.26.0
+        uses: anothrNick/github-tag-action@1.36.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
@@ -87,7 +87,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: galaxy
-        uses: robertdebock/galaxy-action@1.1.0
+        uses: robertdebock/galaxy-action@1.1.1
         with:
           galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
           path: 'bilalcaliskan.zookeeper'
