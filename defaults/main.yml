@@ -1,8 +1,7 @@
 ---
-
 ############# Installation Specific Parameters #############
 install: true
-enable_firewalld: true
+enable_firewalld: false
 version: 3.6.3
 user: zookeeper
 group: zookeeper

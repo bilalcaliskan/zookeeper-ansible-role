@@ -1,5 +1,4 @@
 ---
-
 - name: Ensure correct partitions exist on device {{ device }}
   parted:
     device: "{{ device }}"
